@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,19 +17,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //teste
 
 @Entity
-@Table(name = " postagem")
+@Table(name = " tb_postagem")
 public class Postagem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
-	@Size(min = 5, max = 100)
+	@NotBlank(message = "O Atributo título é Obrigatório!")
+	@Size(min = 5, max = 100, message = "O Atributo título dvee conter no minimo 5 e no máximo 100 caracteres.")
 	private String titulo;
 	
-	@NotNull
-	@Size(min = 10, max = 500)
+	@NotBlank(message = "O Atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O Atributo texto deve ter conter no mínimo 10 e nomáximo 1000 caracteres.")
 	private String texto;
 	
 	@UpdateTimestamp
@@ -38,6 +38,10 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -68,6 +72,12 @@ public class Postagem {
 	}
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

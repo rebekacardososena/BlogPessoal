@@ -2,6 +2,8 @@ package org.generation.blogpessoalbeka.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.generation.blogpessoalbeka.model.Tema;
 import org.generation.blogpessoalbeka.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class TemaController {
 	
 	@GetMapping
 	public ResponseEntity<List<Tema>> getAll(){
-		return ResponseEntity.ok(repository.findAll());		
+		return ResponseEntity.ok(repository.findAll());	
 	}
 	
 	@GetMapping("/{id}")
@@ -35,17 +37,17 @@ public class TemaController {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
-	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Tema>> getByName(@PathVariable String nome){
-		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
+	@GetMapping("/descricao/{descricao}")
+	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao){
+		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	@PostMapping
-	public ResponseEntity<Tema> post (@RequestBody Tema tema){
+	public ResponseEntity<Tema> postTema (@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(repository.save(tema));
 	}
 	@PutMapping
-	public ResponseEntity<Tema> put (@RequestBody Tema tema){
+	public ResponseEntity<Tema> putTema (@RequestBody Tema tema){
 		return ResponseEntity.ok(repository.save(tema));
 	}
 	@DeleteMapping("/{id}")

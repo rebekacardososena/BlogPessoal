@@ -2,6 +2,8 @@ package org.generation.blogpessoalbeka.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.generation.blogpessoalbeka.model.Postagem;
 import org.generation.blogpessoalbeka.repository.PostagemRepository;
 
@@ -45,11 +47,11 @@ public class PostagemController {
 }
 	
 	@PostMapping
-	public ResponseEntity<Postagem> post (@RequestBody Postagem postagem){
+	public ResponseEntity<Postagem> post (@Valid @RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));		
 	}
 	@PutMapping
-	public ResponseEntity<Postagem> put (@RequestBody Postagem postagem){
+	public ResponseEntity<Postagem> put (@Valid @RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));		
 	}
 	@DeleteMapping("/{id}")
