@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-//teste
+
 
 @Entity
 @Table(name = " tb_postagem")
