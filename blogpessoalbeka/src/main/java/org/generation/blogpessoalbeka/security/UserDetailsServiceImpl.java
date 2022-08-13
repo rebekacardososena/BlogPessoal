@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import org.generation.blogpessoalbeka.model.Usuario;
+import org.generation.blogpessoalbeka.model.UsuarioModel;
 import org.generation.blogpessoalbeka.repository.UsuarioRepository;
 
 @Service
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-		Optional<Usuario> usuario = usuarioRepository.findByUsuario(userName);
+		Optional<UsuarioModel> usuario = usuarioRepository.findByUsuario(userName);
 	if (usuario.isPresent())
 		return new UserDetailsImpl(usuario.get());
 	else

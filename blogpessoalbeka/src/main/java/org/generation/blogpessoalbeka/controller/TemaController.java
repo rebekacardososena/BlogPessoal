@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.generation.blogpessoalbeka.model.Tema;
+import org.generation.blogpessoalbeka.model.TemaModel;
 import org.generation.blogpessoalbeka.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,26 +28,26 @@ public class TemaController {
 	private TemaRepository temaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Tema>> getAll(){
+	public ResponseEntity<List<TemaModel>> getAll(){
 		return ResponseEntity.ok(temaRepository.findAll());	
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById(@PathVariable Long id){
+	public ResponseEntity<TemaModel> getById(@PathVariable Long id){
 		return temaRepository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	@GetMapping("/descricao/{descricao}")
-	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao){
+	public ResponseEntity<List<TemaModel>> getByDescricao(@PathVariable String descricao){
 		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	@PostMapping
-	public ResponseEntity<Tema> postTema (@Valid @RequestBody Tema tema){
+	public ResponseEntity<TemaModel> postTema (@Valid @RequestBody TemaModel tema){
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(temaRepository.save(tema));
 	}
 	@PutMapping
-	public ResponseEntity<Tema> putTema (@RequestBody Tema tema){
+	public ResponseEntity<TemaModel> putTema (@RequestBody TemaModel tema){
 		return ResponseEntity.ok(temaRepository.save(tema));
 	}
 	@DeleteMapping("/{id}")

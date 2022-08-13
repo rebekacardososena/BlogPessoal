@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
-import org.generation.blogpessoalbeka.model.Usuario;
+import org.generation.blogpessoalbeka.model.UsuarioModel;
 import org.generation.blogpessoalbeka.model.UsuarioLogin;
 import org.generation.blogpessoalbeka.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UsuarioService {
 	 @Autowired
 	    private UsuarioRepository usuarioRepository;
 
-	    public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+	    public Optional<UsuarioModel> cadastrarUsuario(UsuarioModel usuario) {
 
 	        if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 	            return Optional.empty();
@@ -36,11 +36,11 @@ public class UsuarioService {
 			return encoder.encode(senha);   
 		}
 
-	    public Optional<Usuario> atualizarUsuario(Usuario usuario) {
+	    public Optional<UsuarioModel> atualizarUsuario(UsuarioModel usuario) {
 	        
 	        if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 
-	            Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+	            Optional<UsuarioModel> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
 
 	            if ( (buscaUsuario.isPresent()) && ( buscaUsuario.get().getId() != usuario.getId()))
 	                throw new ResponseStatusException(
@@ -58,7 +58,7 @@ public class UsuarioService {
 
 	    public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 
-	        Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
+	        Optional<UsuarioModel> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
 	        if (usuario.isPresent()) {
 

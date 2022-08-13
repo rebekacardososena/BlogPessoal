@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario {
+public class UsuarioModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Usuario {
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
+	private List<PostagemModel> postagem;
 
 	public Long getId() {
 		return id;
@@ -82,11 +82,11 @@ public class Usuario {
 		this.foto = foto;
 	}
 
-	public List<Postagem> getPostagem() {
+	public List<PostagemModel> getPostagem() {
 		return postagem;
 	}
 
-	public void setPostagem(List<Postagem> postagem) {
+	public void setPostagem(List<PostagemModel> postagem) {
 		this.postagem = postagem;
 	}
 	

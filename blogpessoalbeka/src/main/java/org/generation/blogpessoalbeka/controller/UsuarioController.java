@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.generation.blogpessoalbeka.model.Usuario;
+import org.generation.blogpessoalbeka.model.UsuarioModel;
 import org.generation.blogpessoalbeka.model.UsuarioLogin;
 import org.generation.blogpessoalbeka.repository.UsuarioRepository;
 import org.generation.blogpessoalbeka.service.UsuarioService;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-	@RequestMapping("/usuario")
+	@RequestMapping("/usuarios")
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	public class UsuarioController {
 	 
@@ -34,21 +34,25 @@ import org.springframework.web.bind.annotation.RestController;
 	    private UsuarioService usuarioService;
 	    
 	    @GetMapping
-	    public ResponseEntity <List<Usuario>> getAll(){     
+	    public ResponseEntity <List<UsuarioModel>> getAll(){     
 	        return ResponseEntity.ok(usuarioRepository.findAll());  
 	
 	    }
 
 	    @GetMapping("/{id}")
-	    public ResponseEntity<Usuario> getById(@PathVariable Long id) {
+	    public ResponseEntity<UsuarioModel> getById(@PathVariable Long id) {
 	        return usuarioRepository.findById(id)
 	            .map(resposta -> ResponseEntity.ok(resposta))
 	            .orElse(ResponseEntity.notFound().build());
 	    }
 	    
-	  
+	    @GetMapping("/nome/{nome}")
+	    public ResponseEntity<List<UsuarioModel>> getByNome(@PathVariable String nome){
+	    	return ResponseEntity.ok(usuarioRepository.findAllByNomeContainigIgonoreCase(nome));
+	    } 
+	    
 	    @PostMapping("/cadastrar")
-	    public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
+	    public ResponseEntity<UsuarioModel> postUsuario(@Valid @RequestBody UsuarioModel usuario) {
 
 	        return usuarioService.cadastrarUsuario(usuario)
 	            .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
@@ -65,7 +69,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 	    @PutMapping("/atualizar")
-	    public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
+	    public ResponseEntity<UsuarioModel> putUsuario(@Valid @RequestBody UsuarioModel usuario) {
 	        return usuarioService.atualizarUsuario(usuario)
 	            .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 	            .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
