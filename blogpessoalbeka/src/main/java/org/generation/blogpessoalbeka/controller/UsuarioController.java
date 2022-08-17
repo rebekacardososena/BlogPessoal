@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.RestController;
 	    
 	    @GetMapping("/nome/{nome}")
 	    public ResponseEntity<List<UsuarioModel>> getByNome(@PathVariable String nome){
-	    	return ResponseEntity.ok(usuarioRepository.findAllByNomeContainigIgonoreCase(nome));
+	    	return ResponseEntity.ok(usuarioRepository.findAllByNomeContainingIgnoreCase(nome));
 	    } 
 	    
 	    @PostMapping("/cadastrar")

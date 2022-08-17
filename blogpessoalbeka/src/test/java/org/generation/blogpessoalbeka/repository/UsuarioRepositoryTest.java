@@ -52,7 +52,7 @@ public class UsuarioRepositoryTest {
 	@DisplayName("Retorna 3 usuarios")
 	public void deveRetornarTresUsuarios() {
 
-		List<UsuarioModel> listaDeUsuarios = usuarioRepository.findAllByNomeContainigIgonoreCase("Silva");
+		List<UsuarioModel> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
 
 		assertEquals(3, listaDeUsuarios.size());
 		
