@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 	    @Autowired
 	    private UsuarioService usuarioService;
 	    
-	    @GetMapping
+	    @GetMapping("/all")
 	    public ResponseEntity <List<UsuarioModel>> getAll(){     
 	        return ResponseEntity.ok(usuarioRepository.findAll());  
 	
